@@ -17,6 +17,7 @@ from math import floor, ceil
 FILE_NAME = 'AOT'
 FPS = 30
 BPM = 144
+IGNORE_FIRST_SECONDS = 1
 STATE_COLOR = [(190, 252, 81), (89, 196, 209)]
 KEYS = [(0, 'C#m'), (23, 'Dm')]
 
@@ -66,7 +67,7 @@ with tqdm() as pbar:
         success, image = vidcap.read()
         read_frames += 1
         if not success or read_frames > FPS * 1000: break
-        if read_frames < FPS: continue
+        if read_frames < FPS * IGNORE_FIRST_SECONDS: continue
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         for i, (r, c, l) in KEY_POS:
